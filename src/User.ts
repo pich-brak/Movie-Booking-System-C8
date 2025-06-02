@@ -1,17 +1,17 @@
-import { Person } from "./Person";
-import { Booking } from "./Booking";
-import { Review } from "./Review";
-import { Movie } from "./Movie";
+import {Person} from './Person';
+class User extends Person {
+    bookings: Booking[] = [];
+    reviews: Review[] = [];
 
-export class User extends Person {
-  private bookings: Booking[] = [];
-  private reviews: Review[] = [];
-  private password: string;
+    constructor(id: number, name: string, email: string, public password: string) {
+        super(id, name, email);
+    }
 
- 
+    browseMovies(): void {}
+    viewBookings(): void {}
+    rateMovie(): void {}
+    filterMoviesByGenre(): void {}
 
-  constructor(id: number, name: string, email: string, password: string) {
-    super(id, name, email);
-    this.password = password;
-  }
+    register(): void {}
+    login(): boolean { return true; }
 }
