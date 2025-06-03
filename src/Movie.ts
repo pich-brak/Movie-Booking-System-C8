@@ -1,31 +1,33 @@
-import { Cinema } from './Cinema';
-import { ShowTime } from './Showtime';
+// movie.ts
+import { Review } from './Review';
+import { Showtime } from './Showtime';
 
 export class Movie {
-    private id: number;
-    private title: string;
-    private genre: string;
-    private duration: number;
-    private showTimes: ShowTime[] = [];
-    private cinema: Cinema;
+  reviews: Review[] = [];
 
-    constructor(id: number, title: string, genre: string, duration: number, cinema: Cinema) {
-        this.id = id;
-        this.title = title;
-        this.genre = genre;
-        this.duration = duration;
-        this.cinema = cinema;
-    }
+  constructor(
+    public movieID: number,
+    public title: string,
+    public genre: string,
+    public releaseDate: string,
+    public duration: number,
+    public rating: number
+  ) {}
 
-    public addShowTime(showTime: ShowTime): void {
-        this.showTimes.push(showTime);
-    }
+  addReview(review: Review): void {
+    this.reviews.push(review);
+  }
 
-    public getShowTimes(): ShowTime[] {
-        return this.showTimes;
-    }
+  getAverageRating(): number {
+    const sum = this.reviews.reduce((acc, r) => acc + r.rating, 0);
+    return this.reviews.length ? sum / this.reviews.length : 0;
+  }
 
-    public getTitle(): string {
-        return this.title;
-    }
+  getShowtimes(): Showtime[] {
+    return [];
+  }
+
+  isShowing(currentDate: Date): boolean {
+    return new Date(this.releaseDate) <= currentDate;
+  }
 }

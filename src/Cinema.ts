@@ -1,22 +1,25 @@
-import { Movie } from './Movie';
+// cinema.ts
+import { Theater } from './Theater';
+import { Seat } from './Seat';
 
 export class Cinema {
-    private id: number;
-    private name: string;
-    private location: string;
-    private movies: Movie[] = [];
+  private theaters: Theater[] = [];
 
-    constructor(id: number, name: string, location: string) {
-        this.id = id;
-        this.name = name;
-        this.location = location;
-    }
+  constructor(
+    public id: number,
+    public name: string,
+    public location: string
+  ) {}
 
-    public addMovie(movie: Movie): void {
-        this.movies.push(movie);
-    }
+  addTheater(theater: Theater): void {
+    this.theaters.push(theater);
+  }
 
-    public getMovies(): Movie[] {
-        return this.movies;
+  getAvailableSeats(showTimeId: number): Seat[] {
+    for (const theater of this.theaters) {
+      const available = theater.getAvailableSeats(showTimeId);
+      if (available.length > 0) return available;
     }
+    return [];
+  }
 }
