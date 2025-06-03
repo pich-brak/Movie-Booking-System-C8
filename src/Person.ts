@@ -1,7 +1,11 @@
+// store registered users by email
+const users: { [email: string]: any } = {};
+
 export abstract class Person {
     public id: number;
     public name: string;
     public email: string;
+  password: any;
 
     constructor(id: number, name: string, email: string) {
         this.id = id;

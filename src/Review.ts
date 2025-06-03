@@ -1,9 +1,12 @@
+import { Movie } from "./Movie";
+
 export class Review {
   
-  private movie: Movie;
+  private movie: Movie | undefined;
   private rating: number;
   private comment: string;
   private date: Date;
+  user: any;
 
   constructor(rating: number, comment: string) {
     this.rating = rating;
@@ -28,6 +31,7 @@ export class Review {
   }
 
   getReviewSummary(): string {
-    return `Review by ${this.user.constructor.name} for "${this.movie.title}": ${this.rating}/5 - "${this.comment}" [${this.date.toLocaleString()}]`;
+    const movieTitle = this.movie ? this.movie.getTitle() : "Unknown Movie";
+    return `Review by ${this.user.constructor.name} for "${movieTitle}": ${this.rating}/5 - "${this.comment}" [${this.date.toLocaleString()}]`;
   }
 }

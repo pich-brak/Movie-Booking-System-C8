@@ -3,6 +3,7 @@ import { Seat } from "./Seat";
 
 export class Booking {
   bookingDate: Date = new Date();
+  seatNumbers: any;
 
   constructor(
     public id: number,
