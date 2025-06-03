@@ -7,6 +7,7 @@ import { Movie } from './Movie';
 import { Showtime } from './Showtime';
 import { Theater } from './Theater';
 import { Cinema } from './Cinema';
+import { Review } from './Review'; 
 
 // 1. Create a user
 const user = new User(1, "Alice", "alice@example.com");
@@ -26,7 +27,7 @@ cinema.addTheater(theater);
 
 // 4. Create a showtime and assign it to theater
 const showtime = new Showtime(201, movie, "18:00", cinema);
-showtime.seats = [...seats]; // Assign seat layout to showtime
+showtime.seats = [...seats];
 theater.assignShowtime(showtime);
 
 // 5. User browses and filters movies
@@ -38,7 +39,7 @@ const availableSeats = theater.getAvailableSeats(showtime.id);
 console.log("Available Seats:", availableSeats.map(seat => seat.seatID));
 
 // 7. Book seats
-const seatsToBook = availableSeats.slice(0, 2); // Select first 2 seats
+const seatsToBook = availableSeats.slice(0, 2);
 const booking = user.bookMovie(movie, showtime, seatsToBook, "Credit Card");
 
 if (booking) {
@@ -47,8 +48,12 @@ if (booking) {
   console.log("QR Code:", booking.ticket.qrCode);
 }
 
-// 8. Write a review
+// 8. Write a review (handled inside `user.writeReview`)
 user.writeReview(movie, 5, "Mind-blowing movie with a great concept!");
+
+// Optionally create and display a review manually using Review class
+const review = new Review(movie, 5, new Date(), "Mind-blowing movie with a great concept!");
+console.log(review.getReviewSummary());
 
 // 9. Staff scans the ticket
 const staff = new Staff(99, "Bob", "bob@cinema.com");
